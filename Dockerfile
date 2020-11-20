@@ -2,7 +2,7 @@ ARG  HTTP_PROXY=""
 
 FROM golang:1.15-alpine3.12
 ENV  GO111MODULE=on GOPROXY=https://goproxy.cn,direct HTTP_PROXY=${HTTP_PROXY}
-RUN  apk add git gcc libc-dev && go get -u -v github.com/gopherdata/gophernotes && cp -v "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.1/kernel /gophernotes && cp -v $(go env GOPATH)/bin/gophernotes /gophernotes/gophernotes
+RUN  apk add git gcc libc-dev && go get -u -v github.com/gopherdata/gophernotes && cp -v -r "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.1/kernel /gophernotes && cp -v $(go env GOPATH)/bin/gophernotes /gophernotes/gophernotes
 
 FROM alpine:3.12
 COPY --from=0 /gophernotes/ /root/.local/share/jupyter/kernels/gophernotes
